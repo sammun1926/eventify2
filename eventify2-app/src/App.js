@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Events } from './components/Events/Events';
+import Bookings from './components/Bookings/Bookings'; 
 import EventDetails from './components/EventDetails/EventDetails';
+import UserProfile from './components/UserProfile/UserProfile';
+
 
 function App() {
   
@@ -29,13 +32,20 @@ function App() {
     },
    
   ];
+  const user = {
+    name: 'John Doe',
+    email: 'john@example.com',
+    // Other user properties
+  };
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Events />} />
-        
+        <Route path="/Events" element={<Events />} />
         <Route path="/event/:eventId" element={<EventDetails filteredCards={filteredCards} />} />
+        <Route path="/booking/:userId/:eventId/:ticketCount" component={Bookings} />
+        <Route path="/UserProfile" element={<UserProfile user={user} />} />
+
       </Routes>
     </Router>
   );

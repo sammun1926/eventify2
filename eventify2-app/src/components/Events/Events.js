@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, useNavigate, Link } from 'react-router-dom';
+import {  useNavigate,  } from 'react-router-dom';
 
 import './Events.css';
 
@@ -48,15 +48,22 @@ export const Events = () => {
 
   const navigate = useNavigate();
 
-  const handleNavigation = () => {
-    // Programmatically navigate to the target route
-    navigate("/event/:eventId");
+  const user ={}
+
+  const handleNavigation = (id) => {
+
+    if (user) {
+      navigate(`/event/${id}`);
+    } else {
+      navigate(`/login?returnUrl=event/${id}`)
+    }
+ 
   };
 
   const handleSortByTitle = () => {
     const sortedCards = [...filteredCards].sort((a, b) => a.title.localeCompare(b.title));
     setCards(sortedCards);
-    setSelectedEvent(null); // Reset selectedEvent when sorting by title
+    setSelectedEvent(null); 
   };
 
   const handleSeeDetails = (event) => {
@@ -87,13 +94,14 @@ export const Events = () => {
                 <p>Date: {card.date}</p>
                 <p>Location: {card.location}</p>
                 <p>{card.text}</p>
-                {/* <button className='btn' onClick={handleNavigation }>
+                {/* <button className='btn' onClick={handleNavigation(card.id) }>
                   See Details
                 </button> */}
-                <Link to={`/event/${i}`} className='btn'>
+                <button className='btn' onClick={() => handleNavigation(i)}>
+                 
                   View Details
-                </Link>
-                
+               
+                 </button>
               </div>
             ))}
           </div>
